@@ -1,0 +1,95 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label>First Name</label>
+        <input type="text" formControlName="firstname">
+    </div>
+    <div>
+        <label>Last Name</label>
+        <input type="text" formControlName="lastname">
+    </div>
+    <div formArrayName="email">
+        <label>Email ID</label>
+        <div *ngFor="let mail of email.controls; let i=index">
+            <label>Email {{i+1}}</label>
+            <input type="email" [formControlName]="i">
+            <div *ngIf="registrationForm.get('email').length>1">
+                <button (click)="removeEmail(i)">Remove Email</button>
+            </div>
+        </div>
+        <button (click)="addEmail()">Add Email</button>
+    </div>
+    <div formArrayName="mobile">
+        <label>Mobile number</label>
+        <div *ngFor="let mob of mobile.controls; let i=index">
+            <label>Mobile {{i+1}}</label>
+            <input type="text" [formControlName]="i">
+            <div *ngIf="registrationForm.get('mobile').length>1">
+                <button (click)="removeMobile(i)">Remove Mobile</button>
+            </div>
+        </div>
+        <button (click)="addMobile()">Add Mobile</button>
+    </div>
+
+    <div>
+        <p>Area of Interest</p>
+        <label>
+            <input type="checkbox" formControlName="sports">
+            Sports
+        </label>
+        <label>
+            <input type="checkbox" formControlName="music">
+            Music
+        </label>
+        <label>
+            <input type="checkbox" formControlName="dance">
+            Dance
+        </label>
+        <label>
+            <input type="checkbox" formControlName="gardening">
+            Gardening
+        </label>
+    </div>
+    <div>
+        <label>Date of birth</label>
+        <input type="date" formControlName="dob">
+    </div>
+    <div>
+        <label>Blood Group</label>
+        <input type="text" formControlName="bloodgroup">
+    </div>
+    <div>
+        <label>Gender: </label>
+        <div>
+            <label>
+                <input type="radio" value="female" formControlName="gender">
+                Female
+            </label>
+            <label>
+                <input type="radio" value="male" formControlName="gender">
+                Male
+            </label>
+        </div>
+    </div>
+    <table formArrayName="education">
+        <tr>
+            <th>Qualification</th>
+            <th>Institute name</th>
+            <th>Board</th>
+            <th>Precentage</th>
+            <th>Year of passing</th>
+            <th><button (click)="addItem()">Add</button></th>
+        </tr>
+        <tr *ngFor="let item of education.controls; let i=index"
+            [formGroupName]="i" >
+            <td><input type='text' formControlName="qualification"></td>
+            <td><input type='text' formControlName="institute"></td>
+            <td><input type='text' formControlName="board"></td>
+            <td><input type='text' formControlName="mark"></td>
+            <td><input type='text' formControlName="yearofpassing"></td>
+            <td><button (click)="removeItem(i)">Remove</button></td>
+        </tr>
+    </table>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
